@@ -4,4 +4,4 @@ This project aims to calculate the resistive force on a tool/body moving through
 
 The end goal is to have an interface to input a tool (e.g. from a cad file), define the free surface height (or profile) of the granular material, and from that calculate the forces acting on the tool.
 
-Improvements to teh theory such as that used in Tsuchiya et al (2020) - [Link](https://www.sciencedirect.com/science/article/pii/S002248982030001X)
+Improvements to the theory such as that used in Tsuchiya et al (2020) - [Link](https://www.sciencedirect.com/science/article/pii/S002248982030001X) - will eventually also be included.
