@@ -59,33 +59,32 @@ def printGenericAlphaContour():
     Alpha_z, Alpha_x = AlphaGeneric(Beta, Gamma)
 
     # plot
-    plt.figure()
-    plt.imshow(
+    fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+
+    im0 = axs[0].imshow(
         Alpha_z,
         extent=[gamma.min(), gamma.max(), beta.min(), beta.max()],
         origin='lower',
         cmap='jet',
-        vmin=-1,
-        vmax=1
+        vmin=-1, vmax=1
     )
+    axs[0].set_title(r'$\alpha_z$')
+    axs[0].set_xlabel(r'$\gamma$')
+    axs[0].set_ylabel(r'$\beta$')
+    fig.colorbar(im0, ax=axs[0], label=r'$\alpha_z^\text{generic}$', ticks=[-1, 0, 1])
 
-    plt.colorbar(label=r'$\alpha_z^\text{generic}$', ticks=[-1, 0, 1])
-    plt.xlabel(r'$\gamma$')
-    plt.ylabel(r'$\beta$')
-
-    plt.figure()
-    plt.imshow(
+    im1 = axs[1].imshow(
         Alpha_x,
         extent=[gamma.min(), gamma.max(), beta.min(), beta.max()],
         origin='lower',
         cmap='jet',
-        vmin=-0.4,
-        vmax=0.4
+        vmin=-0.4, vmax=0.4
     )
-    plt.colorbar(label=r'$\alpha_x^\text{generic}$', ticks=[-0.4, 0, 0.4])
-    plt.xlabel(r'$\gamma$')
-    plt.ylabel(r'$\beta$')
+    axs[1].set_title(r'$\alpha_x$')
+    axs[1].set_xlabel(r'$\gamma$')
+    fig.colorbar(im1, ax=axs[1], label=r'$\alpha_x^\text{generic}$', ticks=[-0.4, 0, 0.4])
 
+    plt.tight_layout()
     plt.show()
 
 
