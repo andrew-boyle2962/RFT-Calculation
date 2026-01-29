@@ -39,6 +39,26 @@ class SemiSubmergedVerticalPlate():
     
     def restOfIntegral(self, z):
         return z * self.width
+
+
+class SubmergedHorizontalPlate():
+
+    def __init__(self, width, length, depth):
+        self.width = width
+        self.depth = depth
+        self.lower_limit = 0
+        self.upper_limit = length
+
+    @staticmethod
+    def beta(z):
+        return 0
+    
+    @staticmethod
+    def gamma(z):
+        return 0
+    
+    def restOfIntegral(self, x):
+        return self.depth * self.width
     
 
 
@@ -83,7 +103,24 @@ class HalfSubmergedSphere():
 
 if __name__ == '__main__':
 
-    MyPlate = SemiSubmergedVerticalPlate(20, 10)
+    # DIMENSIONS ARE IN CM
+
+    ScalingFac = 0.8 * 1.5/2
+    ExpVertical = SemiSubmergedVerticalPlate(10, 3.5)
+    ExpVertical.Force_z, ExpVertical.Force_x = SurfaceIntegral(ExpVertical.lower_limit, ExpVertical.upper_limit, ExpVertical.beta, ExpVertical.gamma, ExpVertical.restOfIntegral)
+
+    #ExpHoriz = SubmergedHorizontalPlate(10, 1.5, 3.5)
+    #ExpHoriz.Force_z, ExpHoriz.Force_x = SurfaceIntegral(ExpHoriz.lower_limit, ExpHoriz.upper_limit, ExpHoriz.beta, ExpHoriz.gamma, ExpHoriz.restOfIntegral)
+    
+    ExperimentalPlate_Force_z = ExpVertical.Force_z #+ ExpHoriz.Force_z
+    ExperimentalPlate_Force_x = ExpVertical.Force_x# + ExpHoriz.Force_x
+    
+    ExperimentalPlate_Force_z *= ScalingFac
+    ExperimentalPlate_Force_x *= ScalingFac
+    
+    print(f'Semi-Submerged Vertical Plate:\nZ Force - {np.round(ExperimentalPlate_Force_z, 3)} N\nX Force - {np.round(ExperimentalPlate_Force_x, 3)} N\n')
+
+    '''MyPlate = SemiSubmergedVerticalPlate(20, 10)
     MyPlate.Force_z, MyPlate.Force_x = SurfaceIntegral(MyPlate.lower_limit, MyPlate.upper_limit, MyPlate.beta, MyPlate.gamma, MyPlate.restOfIntegral)
     print(f'Semi-Submerged Vertical Plate:\nZ Force - {np.round(MyPlate.Force_z, 3)} N\nX Force - {np.round(MyPlate.Force_x, 3)} N\n')
 
@@ -93,6 +130,6 @@ if __name__ == '__main__':
 
     MySphere = HalfSubmergedSphere(10)
     MySphere.Force_z, MySphere.Force_x = SurfaceIntegral(MySphere.lower_limit, MySphere.upper_limit, MySphere.beta, MySphere.gamma, MySphere.restOfIntegral)
-    print(f'Half-Submerged Sphere:\nZ Force - {np.round(MySphere.Force_z, 3)} N\nX Force - {np.round(MySphere.Force_x, 3)} N\n')
+    print(f'Half-Submerged Sphere:\nZ Force - {np.round(MySphere.Force_z, 3)} N\nX Force - {np.round(MySphere.Force_x, 3)} N\n')'''
 
 
